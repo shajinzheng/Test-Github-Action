@@ -1,4 +1,4 @@
-name: CI
+name: test-context
 
 on: [push]
 
@@ -17,6 +17,7 @@ jobs:
         echo test, and deploy your project.
 
   second-job:
+    needs: [first-job]
     runs-on: ubuntu-16.04
     steps:
       - name: Dump GitHub context
