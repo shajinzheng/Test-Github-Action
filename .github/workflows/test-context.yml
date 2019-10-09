@@ -2,6 +2,11 @@ name: test-context
 
 on: [push]
 
+env:
+  product: crt-backend
+  fabric: corp-lca1
+  tag: test-tag
+
 jobs:
   first-job:
 
@@ -44,3 +49,10 @@ jobs:
         env:
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo "$MATRIX_CONTEXT"
+  
+  third-job:
+    needs: [first-job]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump workflow context
+        run: echo ${{ env.product }}
