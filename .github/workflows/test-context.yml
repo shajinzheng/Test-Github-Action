@@ -53,6 +53,8 @@ jobs:
   third-job:
     needs: [first-job]
     runs-on: ubuntu-latest
+    env:
+      PRODUCT: ${{ env }}
     steps:
       - name: Dump workflow context
-        run: echo ${{ env.product }}
+        run: echo "$PRODUCT"
