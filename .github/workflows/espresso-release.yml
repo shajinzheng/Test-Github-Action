@@ -1,0 +1,43 @@
+name: CI
+
+on: [push]
+
+env:
+  product: espresso
+  base-version: 0.1.2
+  new-version: 0.2.0
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Deploy Canary
+      env:
+        product: $product
+        fabric: prod-lsg1
+        tag: HORCURX
+        ramp-percentage: 0.2
+        version: new-version
+      run: echo 'Deploy $product, $version to cluster $tag on fabric $fabric ($ramp-percentage)'
+    
+    - name: Kick off EKG
+      env:
+        product: $product
+        fabric: prod-lsg1
+        application: espresso-storage-node
+        start: '2019-10-01 10:00:00'
+        end: '2019-10-01 11:00:00'
+        control: $base-version
+        target: $new-version
+      run: echo 'Run EKG for $product, on $fabric, for application $application, comparing $control and $target'
+        
+    - name: Promotion
+      if: success()
+      env:
+        product: $product
+        fabric: prod-lsg1
+        tag: HORCURX
+        ramp-percentage: 1
+        version: new-version
+      run: echo 'Deploy $product, $version to cluster $tag on fabric $fabric ($ramp-percentage)'
