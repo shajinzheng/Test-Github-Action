@@ -50,11 +50,9 @@ jobs:
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo "$MATRIX_CONTEXT"
   
-#   third-job:
-#     needs: [first-job]
-#     runs-on: ubuntu-latest
-#     env:
-#       PRODUCT: ${{ env }}
-#     steps:
-#       - name: Dump workflow context
-#         run: echo "$PRODUCT"
+  third-job:
+    needs: [first-job]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump workflow context
+        run: echo $product
