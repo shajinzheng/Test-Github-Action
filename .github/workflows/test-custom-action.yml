@@ -40,6 +40,7 @@ jobs:
 
     - name: ekg
       uses: ./actions/any-action
+      id: ekg
       with:
         anyinput: PASS
         additionalinput: GOOD
