@@ -32,11 +32,11 @@ jobs:
     needs: canary
 
     steps:
-    - name: Output Action Execution Result of Prev. Job
-      run: echo "Deployment execution result is ${{ job.canary.steps.canary.outputs.execution_response }}"
-    
     - name: Checkout
       uses: actions/checkout@master
+
+    - name: Output Action Execution Result of Prev. Job
+      run: echo "Deployment execution result is ${{ job.canary.steps.canary.outputs.execution_response }}"
 
     - name: ekg
       uses: ./actions/any-action
@@ -47,6 +47,11 @@ jobs:
     
     - name: Output EKG Result
       run: echo "EKG result is ${{ steps.ekg.outputs.anyoutput }}"
+
+    - name: sleep
+      uses: ./actions/sleep
+      with:
+        time-in-seconds: 5
 
     - name: This shouldn't be run
       if: cancelled()

@@ -1,0 +1,13 @@
+name: 'sleep'
+description: 'Sleep'
+inputs:
+  time-in-seconds:  # id of input
+    description: 'Time to sleep in seconds'
+    required: true
+  
+outputs:
+  status: # id of output
+    description: 'Status'
+runs:
+  using: 'node12'
+  main: 'index.js'
