@@ -23,10 +23,10 @@ jobs:
     - name: Output Action Execution Result
       run: echo "Deployment execution result is ${{ steps.canary.outputs.execution_response }}"
 
-  ekg:
+  # ekg:
 
-    runs-on: ubuntu-latest
+  #   runs-on: ubuntu-latest
 
-    steps:
-    - name: Output Action Execution Result for Prev. Job
-      run: echo "Deployment execution result of prev. job is ${{ jobs.canary.steps.canary.outputs.execution_response }}"
+  #   steps:
+  #   - name: Output Action Execution Result for Prev. Job
+  #     run: echo "Deployment execution result of prev. job is ${{ jobs.canary.steps.canary.outputs.execution_response }}"
