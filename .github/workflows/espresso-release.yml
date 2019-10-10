@@ -3,8 +3,8 @@ name: Release Espresso
 on: [push]
 
 env:
-  product: espresso
-  base-version: 0.1.2
+  env-product: espresso
+  env-base-version: 0.1.2
   new-version: 0.2.0
 
 jobs:
@@ -14,7 +14,7 @@ jobs:
     steps:
     - name: Deploy Canary
       env:
-        product: ${{ toJson(product) }}
+        product: ${{ toJson(env-product) }}
         fabric: prod-lsg1
         tag: HORCURX
         ramp-percentage: 0.2
@@ -23,7 +23,7 @@ jobs:
     
     - name: Kick off EKG
       env:
-        product:  ${{ toJson(product) }}
+        product:  ${{ toJson(env-product) }}
         fabric: prod-lsg1
         application: espresso-storage-node
         start: '2019-10-01 10:00:00'
@@ -35,7 +35,7 @@ jobs:
     - name: Promotion
       if: success()
       env:
-        product: ${{ toJson(product) }}
+        product: ${{ toJson(env-product) }}
         fabric: prod-lsg1
         tag: HORCURX
         ramp-percentage: 1
