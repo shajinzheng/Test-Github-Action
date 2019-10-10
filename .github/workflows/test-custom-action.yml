@@ -1,0 +1,17 @@
+name: test-lid-deploy-action
+
+on: [push]
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: ./actions/lid-deploy
+      with:
+        product: crt-backend
+        fabric: corp-lca1
+        beta_version: 0.0.2
+        base_version: 0.0.1
+        ramp_percentage: 0.3
