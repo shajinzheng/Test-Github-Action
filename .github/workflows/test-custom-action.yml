@@ -2,6 +2,9 @@ name: test-lid-deploy-action
 
 on: [push]
 
+env:
+  envproduct: crt-backend
+
 jobs:
   canary:
 
@@ -15,7 +18,7 @@ jobs:
       uses: ./actions/lid-deploy
       id: canary
       with:
-        product: crt-backend
+        product: $envproduct
         fabric: corp-lca1
         beta_version: 0.0.2
         base_version: 0.0.1
