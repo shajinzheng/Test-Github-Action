@@ -3,7 +3,7 @@ name: test-lid-deploy-action
 on: [push]
 
 jobs:
-  deploy:
+  canary:
 
     runs-on: ubuntu-latest
     
@@ -11,10 +11,22 @@ jobs:
     - name: Checkout
       uses: actions/checkout@master
 
-    - uses: ./actions/lid-deploy
+    - name: canary
+      uses: ./actions/lid-deploy
       with:
         product: crt-backend
         fabric: corp-lca1
         beta_version: 0.0.2
         base_version: 0.0.1
         ramp_percentage: 0.3
+    
+    - name: Output Action Execution Result
+      run: echo "Deployment execution result is ${{ steps.canary.outputs.execution_response }}"
+
+  ekg:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Output Action Execution Result for Prev. Job
+      run: echo "Deployment execution result of prev. job is ${{ jobs.canary.steps.canary.outputs.execution_response }}"
