@@ -1,0 +1,30 @@
+name: 'lid-deploy'
+description: 'This is a sample lid deploy action'
+inputs:
+  product:  # id of input
+    description: 'MP to deploy'
+    required: true
+  fabric:
+    description: 'Fabric to deploy to'
+    required: true
+  tag:
+    description: 'Product tag to deploy with'
+    required: false
+    default: 'DEFAULT'
+  beta_version:
+    description: 'New version to deploy to'
+    required: true
+  base_version:
+    description: 'Base version'
+    required: true
+  ramp_percentage:
+    description: 'Percentage to ramp beta version to'
+    required: false
+    default: 1
+  
+outputs:
+  execution_response: # id of output
+    description: 'Successfully executed or not'
+runs:
+  using: 'node12'
+  main: 'index.js'
