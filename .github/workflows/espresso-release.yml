@@ -14,7 +14,7 @@ jobs:
     steps:
     - name: Deploy Canary
       env:
-        product: process.env.product
+        product: $process.env.product
         fabric: prod-lsg1
         tag: HORCURX
         ramp-percentage: 0.2
