@@ -51,7 +51,7 @@ jobs:
     - name: sleep
       uses: ./actions/sleep
       with:
-        time-in-seconds: 10
+        time-in-seconds: 30
 
     - name: This shouldn't be run
       if: cancelled()
