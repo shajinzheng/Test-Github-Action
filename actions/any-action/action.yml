@@ -1,0 +1,13 @@
+name: 'any-action'
+description: 'This is any action'
+inputs:
+  anyinput:  # id of input
+    description: 'Any input'
+    required: false
+  
+outputs:
+  anyoutput: # id of output
+    description: 'Any output'
+runs:
+  using: 'node12'
+  main: 'index.js'
