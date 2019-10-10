@@ -13,6 +13,7 @@ jobs:
 
     - name: canary
       uses: ./actions/lid-deploy
+      id: canary
       with:
         product: crt-backend
         fabric: corp-lca1
