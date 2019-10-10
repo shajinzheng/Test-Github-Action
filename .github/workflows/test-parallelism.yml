@@ -1,4 +1,4 @@
-name: test-lid-deploy-action
+name: test-deploy-to-multiple-clusters
 
 on: [push]
 
@@ -6,13 +6,13 @@ env:
   envproduct: crt-backend
 
 jobs:
-  strategy:
-    matrix:
-      colo: [prod-lva1, prod-ltx1]
-      cluster: [cluster1, cluster2]
-    max-parallel: 2
-
   canary:
+    strategy:
+      matrix:
+        colo: [prod-lva1, prod-ltx1]
+        cluster: [cluster1, cluster2]
+      max-parallel: 2
+
     runs-on: ubuntu-latest
     
     steps:
