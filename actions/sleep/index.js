@@ -5,7 +5,7 @@ try {
 
   const seconds = core.getInput('time-in-seconds')
 
-  setTimeout(null, seconds * 1000);
+  setTimeout(console.log('DONE'), seconds * 1000);
 
   core.setOutput("status", 'DONE');
 
