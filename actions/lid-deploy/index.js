@@ -5,8 +5,8 @@ try {
   const productToDeploy = core.getInput('product');
   const fabricToDeploy = core.getInput('fabric')
   const tagToDeploy = core.getInput('tag')
-  const betaVersion = core.getInput('betaVersion')
-  const baseVersion = core.getInput('baseVersion')
+  const betaVersion = core.getInput('beta_version')
+  const baseVersion = core.getInput('base_version')
   const rampPercentage = core.getInput('ramp_percentage')
 
   console.log(`This action should ramp ${productToDeploy} ${rampPercentage} of version ${betaVersion} on fabric ${fabricToDeploy} with tag ${tagToDeploy}. Base version is ${baseVersion}.`);
