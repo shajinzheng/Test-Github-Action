@@ -7,7 +7,6 @@ env:
 
 jobs:
   canary:
-
     runs-on: ubuntu-latest
     
     steps:
@@ -27,13 +26,7 @@ jobs:
     - name: Output Action Execution Result
       run: echo "Deployment execution result is ${{ steps.canary.outputs.execution_response }}"
 
-    - name: Dump job context
-      env:
-        JOB_CONTEXT: ${{ toJson(job) }}
-      run: echo "$JOB_CONTEXT"
-
   ekg:
-
     runs-on: ubuntu-latest
 
     steps:
