@@ -1,0 +1,37 @@
+name: test-lid-deploy-action
+
+on: [push]
+
+env:
+  envproduct: crt-backend
+
+jobs:
+  strategy:
+    matrix:
+      colo: [prod-lva1, prod-ltx1]
+      cluster: [cluster1, cluster2]
+    max-parallel: 2
+
+  canary:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: canary
+      uses: ./actions/lid-deploy
+      id: canary
+      with:
+        product: espresso
+        fabric: ${{ matrix.colo }}
+        tag: ${{ matrix.cluster }}
+        beta_version: 0.0.2
+        base_version: 0.0.1
+        ramp_percentage: 0.3
+    
+    - name: Output Action Execution Result
+      run: echo "Deployment execution result is ${{ steps.canary.outputs.execution_response }}"
+
+    - name: Promotion
+      run: echo "I am going to promote"
