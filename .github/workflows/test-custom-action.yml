@@ -17,10 +17,8 @@ jobs:
     - name: canary
       uses: ./actions/lid-deploy
       id: canary
-      env:
-        product: crt-backend
       with:
-        product: ${{ product }}
+        product: crt-backend
         fabric: corp-lca1
         beta_version: 0.0.2
         base_version: 0.0.1
