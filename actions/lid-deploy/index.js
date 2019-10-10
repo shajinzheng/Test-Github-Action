@@ -9,7 +9,7 @@ try {
   const baseVersion = core.getInput('baseVersion')
   const rampPercentage = core.getInput('ramp_percentage')
 
-  console.log(`This action should ramp ${rampPercentage} of version ${betaVersion} on fabric ${fabricToDeploy} with tag ${tagToDeploy}. Base version is ${baseVersion}.`);
+  console.log(`This action should ramp ${productToDeploy} ${rampPercentage} of version ${betaVersion} on fabric ${fabricToDeploy} with tag ${tagToDeploy}. Base version is ${baseVersion}.`);
 
   core.setOutput("execution_response", 200);
 
