@@ -47,3 +47,7 @@ jobs:
     
     - name: Output EKG Result
       run: echo "EKG result is ${{ steps.ekg.outputs.anyoutput }}"
+
+    - name: This shouldn't be run
+      if: cancelled()
+      run: echo 'Workflow is cancelled'
