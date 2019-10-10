@@ -39,5 +39,5 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Output Action Execution Result for Prev. Job
+    - name: Output Action Execution Result of Prev. Job
       run: echo "Deployment execution result is ${{ steps.canary.outputs.execution_response }}"
