@@ -1,0 +1,65 @@
+name: sample-d2-deploy
+
+on:
+  # 'pcx' will be a new keyword for automation trigger at LinkedIn, similar to 'push' in GHA
+  pcx: 
+    paths:
+    - 'config/public/**'
+
+    products:
+    - voyager-api
+
+
+jobs:
+  deploy-ei:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout  
+      uses: actions/checkout@master
+
+    - name: deploy-ei-ltx1
+      uses: ./actions/d2-deploy
+      with:
+        product: ${{ pcx.product }}
+        fabric: ei-ltx1
+        version: ${{ pcx.version }}
+    
+    - name: deploy-ei4
+      uses: ./actions/d2-deploy
+      with:
+        product: ${{ pcx.product }}
+        fabric: ei4
+        version: 1.2.3
+  
+  deploy-one-prod:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout  
+      uses: actions/checkout@master
+
+    - name: deploy
+      uses: ./actions/d2-deploy
+      with:
+        product: ${{ pcx.product }}
+        fabric: prod-ltx1
+        version: 1.2.3
+  
+  deploy-rest-prods:
+    strategy:
+      matrix:
+        colo: [prod-lva1, prod-lsg1, prod-lor1]
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout  
+      uses: actions/checkout@master
+
+    - name: deploy
+      uses: ./actions/d2-deploy
+      with:
+        product: ${{ pcx.product }}
+        fabric: ${{ matrix.colo }}
+        version: 1.2.3

@@ -1,0 +1,22 @@
+name: 'd2-deploy'
+description: 'This is a sample config deploy action'
+inputs:
+  product:  # id of input
+    description: 'MP to deploy D2 for'
+    required: true
+  fabric:
+    description: 'Fabric to deploy to'
+    required: true
+  cluster:
+    description: 'D2 Cluster to deploy to'
+    required: true
+  version:
+    description: 'Version of D2 config to deploy. If not specified, HEAD will be used.'
+    required: false
+  
+outputs:
+  execution_response: # id of output
+    description: 'Execution response'
+runs:
+  using: 'node12'
+  main: 'index.js'
