@@ -30,7 +30,7 @@ jobs:
       with:
         product: ${{ pcx.product }}
         fabric: ei4
-        version: 1.2.3
+        version: ${{ pcx.version }}
   
   deploy-one-prod:
     runs-on: ubuntu-latest
@@ -44,7 +44,7 @@ jobs:
       with:
         product: ${{ pcx.product }}
         fabric: prod-ltx1
-        version: 1.2.3
+        version: ${{ pcx.version }}
   
   deploy-rest-prods:
     strategy:
@@ -62,4 +62,4 @@ jobs:
       with:
         product: ${{ pcx.product }}
         fabric: ${{ matrix.colo }}
-        version: 1.2.3
+        version: ${{ pcx.version }}
