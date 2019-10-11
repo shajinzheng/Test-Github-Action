@@ -6,7 +6,7 @@ env:
   envproduct: crt-backend
 
 jobs:
-  canary:
+  - canary:
     runs-on: ubuntu-latest
     
     steps:
@@ -26,7 +26,7 @@ jobs:
     - name: Output Action Execution Result
       run: echo "Deployment execution result is ${{ steps.canary.outputs.execution_response }}"
 
-  ekg:
+  - ekg:
     runs-on: ubuntu-latest
 
     needs: canary
