@@ -2,10 +2,14 @@ name: sample-d2-deploy
 
 on:
   # 'pcx' will be a new keyword for automation trigger at LinkedIn, similar to 'push' in GHA
-  pcx: 
+  pcx: # release, to be not breaking
     paths:
     - 'config/public/**'
 
+    # TODO: check whether branch is in the path name
+    # - 'voyager-api/config/public/**'
+
+    # should be removed
     products:
     - voyager-api
 
@@ -22,6 +26,7 @@ jobs:
       uses: ./actions/d2-deploy
       with:
         product: ${{ pcx.product }}
+        # product: ${{ env.pcx.product }}
         fabric: ei-ltx1
         version: ${{ pcx.version }}
     

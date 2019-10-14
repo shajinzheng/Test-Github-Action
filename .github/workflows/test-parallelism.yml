@@ -2,18 +2,24 @@ name: test-deploy-to-multiple-clusters
 
 on: [push]
 
-env:
-  envproduct: crt-backend
+# context:
+#   linkedin:
+#     range:
+#       colo: %PROD
+#       clusters: %ESPRESSO_CLUSTERS
+
+# github:
+#   # envproduct: ${{ linkedin.range.%%PROD }}
+#   berlo: [prod-lva1, prod-ltx1]
 
 jobs:
-  canary:
+  lsg1:
+    runs-on: ubuntu-latest
+
     strategy:
       matrix:
-        colo: [prod-lva1, prod-ltx1]
-        cluster: [cluster1, cluster2]
+        cluster: join(${{ linkedin.range.%espresso-tiers:TIER2 }}, ${{ linkedin.range.%espresso-tiers:TIER1 }})
       max-parallel: 2
-
-    runs-on: ubuntu-latest
     
     steps:
     - name: Checkout
@@ -24,14 +30,90 @@ jobs:
       id: canary
       with:
         product: espresso
-        fabric: ${{ matrix.colo }}
+        fabric: prod-lsg1
         tag: ${{ matrix.cluster }}
         beta_version: 0.0.2
         base_version: 0.0.1
         ramp_percentage: 0.3
+
+    - name: Promotion
+      run: echo "I am going to promote"
+
+  
+  lva1:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        cluster: join(${{ linkedin.range.%espresso-tiers:TIER2 }}, ${{ linkedin.range.%espresso-tiers:TIER1 }})
+      max-parallel: 2
     
-    - name: Output Action Execution Result
-      run: echo "Deployment execution result is ${{ steps.canary.outputs.execution_response }}"
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: canary
+      uses: ./actions/lid-deploy
+      id: canary
+      with:
+        product: espresso
+        fabric: prod-lva1
+        tag: ${{ matrix.cluster }}
+        beta_version: 0.0.2
+        base_version: 0.0.1
+        ramp_percentage: 0.3
+
+    - name: Promotion
+      run: echo "I am going to promote"
+    
+  lsg1-tier0:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        cluster: ${{ linkedin.range.%espresso-tiers:TIER0 }}
+      max-parallel: 2
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: canary
+      uses: ./actions/lid-deploy
+      id: canary
+      with:
+        product: espresso
+        fabric: prod-lsg1
+        tag: ${{ matrix.cluster }}
+        beta_version: 0.0.2
+        base_version: 0.0.1
+        ramp_percentage: 0.3
+
+    - name: Promotion
+      run: echo "I am going to promote"
+  
+  lva1-tier0:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        cluster: ${{ linkedin.range.%espresso-tiers:TIER0 }}
+      max-parallel: 2
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: canary
+      uses: ./actions/lid-deploy
+      id: canary
+      with:
+        product: espresso
+        fabric: prod-lva1
+        tag: ${{ matrix.cluster }}
+        beta_version: 0.0.2
+        base_version: 0.0.1
+        ramp_percentage: 0.3
 
     - name: Promotion
       run: echo "I am going to promote"
