@@ -1,0 +1,19 @@
+name: reference-context-inside-matrix
+
+on: [push]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        fabric: ['prod-lva1', 'prod-lor1']
+        my-context: ${{ github.workflow }}
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run a one-line script
+      run: echo Hello, world, ${{ matrix.fabric }}
+    - name: Run a one-line script
+      run: echo Hello, world, ${{ matrix.my-context }}
